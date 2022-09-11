@@ -94,7 +94,8 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    lista = sorted(list(tbl1['_c4'].unique()))
+    return list(map(lambda letter : letter.upper(), lista))
 
 
 def pregunta_07():
@@ -110,7 +111,7 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    return tbl0.groupby('_c1').sum()['_c2']
 
 
 def pregunta_08():
@@ -128,7 +129,8 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    tbl0['suma'] = tbl0['_c0'] + tbl0['_c2']
+    return tbl0
 
 
 def pregunta_09():
@@ -146,7 +148,8 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    tbl0['year'] = tbl0['_c3'].str[:4]
+    return tbl0
 
 
 def pregunta_10():
@@ -163,7 +166,10 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    data =  tbl0[['_c1', '_c2']]
+    data['_c2'] =  data['_c2'].apply(str)
+    data = data.groupby('_c1').agg(lambda x: ':'.join(sorted(list(x))))
+    return data
 
 
 def pregunta_11():
@@ -218,5 +224,3 @@ def pregunta_13():
     Name: _c5b, dtype: int64
     """
     return
-
-print(pregunta_02())

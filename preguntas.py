@@ -188,7 +188,9 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    data =  tbl1[['_c0', '_c4']]
+    data = data.groupby('_c0', as_index= False).agg(lambda x: ','.join(sorted(list(x))))
+    return data
 
 
 def pregunta_12():
@@ -206,7 +208,10 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    tbl2['_c5'] = tbl2.agg(lambda x: f"{x['_c5a']}:{x['_c5b']}", axis=1)
+    data = tbl2[['_c0', '_c5']].sort_values(by=['_c0', '_c5'])
+    data = data.groupby('_c0', as_index= False).agg(lambda x: ','.join(sorted(list(x))))
+    return data
 
 
 def pregunta_13():
@@ -223,4 +228,6 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    data = pd.merge(tbl2, tbl0, sort = True)
+    data = data.groupby('_c1').sum()['_c5b']
+    return data
